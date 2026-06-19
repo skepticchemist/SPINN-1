@@ -1,0 +1,963 @@
+# -*- coding: utf-8 -*-
+"""
+=========================================================================================================
+     .----------------.  .----------------.  .----------------.  .-----------------. .-----------------.
+    | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |                                               
+    | |    _______   | || |   ______     | || |     _____    | || | ____  _____  | || | ____  _____  | |
+    | |   /  ___  |  | || |  |_   __ \   | || |    |_   _|   | || ||_   \|_   _| | || ||_   \|_   _| | |
+    | |  |  (__ \_|  | || |    | |__) |  | || |      | |     | || |  |   \ | |   | || |  |   \ | |   | |
+    | |   '.___`-.   | || |    |  ___/   | || |      | |     | || |  | |\ \| |   | || |  | |\ \| |   | |
+    | |  |`\____) |  | || |   _| |_      | || |     _| |_    | || | _| |_\   |_  | || | _| |_\   |_  | |
+    | |  |_______.'  | || |  |_____|     | || |    |_____|   | || ||_____|\____| | || ||_____|\____| | |
+    | |              | || |              | || |              | || |              | || |              | |
+    | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+     '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
+                                                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡯⢙⢍⣛⣶⣤⠴⠶⠦⢤⣤⣀⡀⠀⠀⢀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⣨⡾⠋⠁⠀⠀⠀⠀⠀⠀⠉⠙⠷⠛⣫⠍⣻⢍⠹⡆⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠢⡄⠀⢸⠀⣷⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢢⣼⠀⣿⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠁⠀⠀⣴⣶⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⡏⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⢀⣴⣶⢿⡷⣆⠀⠀⠿⠿⠟⢀⣀⠀⠀⠀⢰⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⣾⣥⠛⡘⢳⡾⡇⠀⠀⠀⡀⠸⣿⠟⠀⠀⠘⠻⠟⠃⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⢻⡈⠿⠿⠿⠀⣧⠀⠀⠀⠛⠛⠻⠦⠤⠴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⢸⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⣠⡟⠀⠀⠀⠀⠀⠀
+                                                    ⠀⠀⠀⠀⠀⠸⣇⠀⠀⠀⠀⠀⠻⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠛⠉⠉⠙⢷⣾⠋⠀⠀⠀⠀⠀⠀⠀
+                                                    ⠀⣀⣀⣀⣀⣠⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣸⡇⣶⠀⣆⢀⣶⣿⣀⣀⣀⣀⣀⣀⡀⠀
+                                                    ⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⠻⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠁
+=========================================================================================================  
+-program is part of Spectral Processing w/ Intelligent Neural Network package
+Handles: 
+- SRR (Rigid Rotor + Internal Rotor)
+- SRR (1 Nuclear Spin) worked 
+- SRR (2 Equivalent Nuclear Spins)
+- 5SPIN (Closed Shell, 5 Nuclear Spins) semi-worked for hccso radical with rms of 0.4 MHz
+- SR (hadnles 5-spins, Doublet Radical, Open Shell)
+Brain for SPINN.
+prototype fitter ---MJC
+=========================================================================================================
+"""
+
+
+
+
+import sys
+import math
+import numpy as np
+import pandas as pd
+import datetime
+
+# =====================================================================
+# 1. PARSER
+# =====================================================================
+def parse_spectroscopy_file(filepath):
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+    title = lines[0].strip()
+    config, params, fit_flags = {}, {}, {}
+    transitions = []
+    mode = "CONFIG_AND_PARAMS" 
+    
+    config_keys = {"ITER", "FORMAT", "REDUCTION", "REP", "SPIN", "FTH", "FDIF", "OLVL", "PUBL", "DIAG", "DUMP", "TEMP", "JMIN", "JMAX", "FMIN", "FMAX", "MUA", "MUB", "MUC", "LInt"}
+    for line in lines[1:]:
+        line = line.strip()
+        if not line or line.startswith('#') or line.startswith('-'): continue
+        if line.startswith("TRANSITIONS"): mode = "TRANSITIONS"; continue
+        if mode == "CONFIG_AND_PARAMS":
+            parts = line.split()
+            key = parts[0]
+            if key in config_keys: config[key] = parts[1:]
+            else:
+                try:
+                    val = float(parts[1])
+                    flag = int(parts[2]) if len(parts) > 2 else 0
+                    params[key] = val
+                    fit_flags[key] = flag
+                except (ValueError, IndexError): continue
+        elif mode == "TRANSITIONS":
+            parts = line.split()
+            if len(parts) >= 10:
+                try: transitions.append([float(x) for x in parts])
+                except ValueError: pass
+
+    if len(transitions) > 0 and len(transitions[0]) >= 12:
+        cleaned_trans = []
+        for t in transitions:
+            if len(t) == 12: cleaned_trans.append([t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9], t[10], t[11]])
+            elif len(t) >= 14: cleaned_trans.append([t[0], t[1], t[2], t[3], t[4], t[6], t[7], t[8], t[9], t[10], t[12], t[13]])
+        df = pd.DataFrame(cleaned_trans, columns=["N_p", "Ka_p", "Kc_p", "J_p", "F_p", "N_pp", "Ka_pp", "Kc_pp", "J_pp", "F_pp", "Freq", "Err"])
+    else:
+        df = pd.DataFrame(transitions, columns=["N_p", "Ka_p", "Kc_p", "F_p", "N_pp", "Ka_pp", "Kc_pp", "F_pp", "Freq", "Err"])
+        df['J_p'] = -1.0; df['J_pp'] = -1.0
+    return title, config, params, fit_flags, df
+
+# ==============================================================================
+# GLOBAL COMMON BLOCKS (Strict 1-Based Indexing)
+# ==============================================================================
+class COMMON:
+    P = np.zeros(61)
+    PAR = np.zeros(61)
+    NIND = np.zeros(61, dtype=int)
+    NFVAR = 0
+    DI1 = 0.0; DI2 = 0.0; DI3 = 0.0
+    MXBLK = 0
+    FTH = 0.01; FDIF = 2.0; DUMP = 1.0; NCY = 0; IOLVL = 0; IFAVE = 0
+    SPAR = ['DUMMY', 'A   ', 'B   ', 'C   ', 'DLN ', 'DLNK', 'DLK ', 'DSN ', 'DSK ', 'HLN ', 'HLNK', 
+            'HLKN', 'HLK ', 'HSN ', 'HSNK', 'HSK ', 'EAA ', 'EBB ', 'ECC ', 'EAB ', 'SLN ', 
+            'SLNK', 'SLKN', 'SLK ', 'SSN ', 'SSK ', 'AC1 ', 'AA1 ', 'BB1 ', 'AB1 ', 'CAA1', 
+            'CBB1', 'CCC1', 'XAA1', 'XBB1', 'XAB1', 'AC2 ', 'AA2 ', 'BB2 ', 'AB2 ', 'CAA2', 
+            'CBB2', 'CCC2', 'XAA2', 'XBB2', 'XAB2', 'AC3 ', 'AA3 ', 'BB3 ', 'AB3 ', 'CAA3', 
+            'CBB3', 'CCC3', 'XAA3', 'XBB3', 'XAB3', 'BAVE', 'BDIF', '    ', '    ', '    ']
+    H = np.zeros((501, 501))
+    
+# Wigner Cache
+POX = np.zeros(200)
+for i in range(200):
+    POX[i] = math.log(math.factorial(i)) if i > 0 else 0.0
+
+def DFUNC(A, C, B):
+    return POX[int(A+B-C)] + POX[int(A-B+C)] + POX[int(B+C-A)] - POX[int(A+B+C)+1]
+
+def FSGN(I):
+    return 1.0 if int(I) % 2 == 0 else -1.0
+
+def TCHEK(A, B, C):
+    if C >= abs(A - B) and C <= A + B: return False
+    return True
+
+def SIXJ(A, B, C, D, E, F):
+    if TCHEK(A, B, C): return 0.0
+    if TCHEK(A, E, F): return 0.0
+    if TCHEK(D, B, F): return 0.0
+    if TCHEK(D, E, C): return 0.0
+    
+    IABDE = int(A + B + D + E)
+    IBCEF = int(B + C + E + F)
+    ICAFD = int(C + A + F + D)
+    IABC = int(A + B + C)
+    IAEF = int(A + E + F)
+    IDBF = int(D + B + F)
+    IDEC = int(D + E + C)
+    
+    MIN_val = max(IABC, IAEF, IDBF, IDEC)
+    MAX_val = min(IABDE, IBCEF, ICAFD)
+    if MAX_val < MIN_val: return 0.0
+    
+    FL = 0.5 * (DFUNC(A, B, C) + DFUNC(A, E, F) + DFUNC(D, B, F) + DFUNC(D, E, C))
+    ans = 0.0
+    for I in range(MIN_val, MAX_val + 1):
+        P = math.exp(FL + POX[I+1] - POX[I-IABC] - POX[I-IAEF] - POX[I-IDBF] - POX[I-IDEC] 
+                     - POX[IABDE-I] - POX[IBCEF-I] - POX[ICAFD-I])
+        if I % 2 != 0: P = -P
+        ans += P
+    return ans
+
+def THREJ(J1, J2, J3, M1, M2, M3):
+    if J3 < abs(J1 - J2) or J3 > J1 + J2: return 0.0
+    if M1 + M2 + M3 != 0: return 0.0
+    
+    L1, L2 = int(J1+M1), int(J1-M1)
+    L3 = int(J2+M2)
+    N1 = int(J1+J2-J3)
+    N2 = int(J2-J3-M1)
+    N3 = int(J1+M2-J3)
+    N4 = int(J1-J2-M3)
+    
+    MAX_val = min(N1, L2, L3)
+    MIN_val = max(N2, N3, 0)
+    if MAX_val < MIN_val: return 0.0
+    
+    FL = 0.5 * (POX[N1] + POX[int(J1-J2+J3)] + POX[int(J2-J1+J3)] - POX[int(J1+J2+J3)+1] + 
+                POX[L1] + POX[L2] + POX[L3] + POX[int(J2-M2)] + POX[int(J3+M3)] + POX[int(J3-M3)])
+    
+    ans = 0.0
+    for I in range(MIN_val, MAX_val + 1):
+        P = math.exp(FL - POX[N1-I] - POX[L2-I] - POX[L3-I] - POX[I-N2] - POX[I-N3] - POX[I])
+        if (I + N4) % 2 != 0: P = -P
+        ans += P
+    if L1 % 2 != 0: ans = -ans
+    return ans
+
+def X9J(A1, A2, A3, B1, B2, B3, C1, C2, C3):
+    MIN_val = int(2.0 * max(abs(A1-C3), abs(A2-B3), abs(B1-C2)))
+    MAX_val = int(2.0 * min(A1+C3, A2+B3, B1+C2))
+    ans = 0.0
+    for I in range(MIN_val, MAX_val + 1, 2):
+        FI = I * 0.5
+        P = (2.0*FI+1.0) * SIXJ(A1,B1,C1,C2,C3,FI) * SIXJ(A2,B2,C2,B1,FI,B3) * SIXJ(A3,B3,C3,FI,A1,A2)
+        if I % 2 != 0: P = -P
+        ans += P
+    return ans
+
+# ==============================================================================
+# TMTRX & JACOBD & FITX
+# ==============================================================================
+def SETNJF(R, NBLK, ISS):
+    XN = np.zeros(61); XJ = np.zeros(61); XF = np.zeros(61); XG = np.zeros(61)
+    ID = 1
+    II3 = int(COMMON.DI3 * 2.0)
+    for III3 in range(-II3, II3+1, 2):
+        I3 = III3 / 2.0
+        II2 = int(COMMON.DI2 * 2.0)
+        for III2 in range(-II2, II2+1, 2):
+            I2 = III2 / 2.0
+            II1 = int(COMMON.DI1 * 2.0)
+            for III1 in range(-II1, II1+1, 2):
+                I1 = III1 / 2.0
+                for IS in [-1, 1]:
+                    S = IS / 2.0
+                    XG[ID] = I3
+                    XF[ID] = XG[ID] + I2
+                    XJ[ID] = XF[ID] + I1
+                    XN[ID] = XJ[ID] + S
+                    ID += 1
+    
+    N = R + XN[NBLK]
+    J = R + XJ[NBLK]
+    F = R + XF[NBLK]
+    G = R + XG[NBLK]
+    
+    if N < 0 or J < 0 or F < 0 or G < 0: return None
+    if ISS == 1 and N == 0: return None
+    return N, J, F, G
+
+def JACOBD(A, NDIM, N, RHO):
+    S = np.zeros((NDIM+1, NDIM+1))
+    DEL = np.zeros(501); B = np.zeros(501)
+    ZERO = 1.0E-30
+    
+    for I in range(1, N):
+        for J in range(I+1, N+1):
+            if abs(A[I, J] - A[J, I]) > ZERO: return S, 30000
+
+    if N < 2 or NDIM < N or RHO <= 0.0 or N > 500: return S, 30000
+
+    AN = float(N)
+    ANORM = 0.0
+    for I in range(1, N):
+        for J in range(I+1, N+1):
+            ANORM += A[I, J]**2
+    ANORM = math.sqrt(2.0 * ANORM)
+    FNORM = RHO * ANORM / AN
+    
+    for I in range(1, N+1): S[I, I] = 1.0
+
+    ISWEEP = 0
+    THRESH = ANORM / AN
+    
+    while True:
+        for I in range(1, N+1):
+            B[I] = A[I, I]
+            DEL[I] = 0.0
+            
+        IND = 0
+        for IQ in range(2, N+1):
+            for IP in range(1, IQ):
+                if abs(A[IP, IQ]) > THRESH:
+                    IND = 1
+                    C = 2.0 * A[IP, IQ]
+                    D = A[IQ, IQ] - A[IP, IP]
+                    G = C*C + D*D
+                    G1 = math.sqrt(G)
+                    ABSD = abs(D)
+                    COV = math.sqrt((1.0 + ABSD/G1) / 2.0)
+                    SIV = C / (2.0 * COV * G1)
+                    if D < 0.0: SIV = -SIV
+                    APP = A[IP, IP]
+                    AQQ = A[IQ, IQ]
+                    
+                    for I in range(1, N+1):
+                        U = A[IP, I]; V = A[IQ, I]
+                        A[IP, I] = COV*U - SIV*V
+                        A[IQ, I] = COV*V + SIV*U
+                        U = S[I, IP]; V = S[I, IQ]
+                        S[I, IP] = COV*U - SIV*V
+                        S[I, IQ] = COV*V + SIV*U
+                        
+                    A[IP, IQ] = 0.0
+                    A[IQ, IP] = 0.0
+                    
+                    ETA = C*C / (2.0 * (G1 + ABSD))
+                    if D < 0.0: ETA = -ETA
+                    
+                    DEL[IP] -= ETA
+                    DEL[IQ] += ETA
+                    A[IP, IP] = APP - ETA
+                    A[IQ, IQ] = AQQ + ETA
+                    
+                    for I in range(1, N+1):
+                        A[I, IP] = A[IP, I]
+                        A[I, IQ] = A[IQ, I]
+                        
+        if IND == 0:
+            if THRESH <= FNORM: break
+            THRESH = THRESH / AN
+            continue
+            
+        for I in range(1, N+1):
+            A[I, I] = B[I] + DEL[I]
+            
+        if ISWEEP >= 100: return S, 1
+        ISWEEP += 1
+        
+    return S, 0
+
+def TMTRX(R, ISS, ISW):
+    A, B, C = COMMON.P[1], COMMON.P[2], COMMON.P[3]
+    DLJ, DLJK, DLK = COMMON.P[4], COMMON.P[5], COMMON.P[6]
+    DSJ, DSK = COMMON.P[7], COMMON.P[8]
+    HLJ, HLJK, HLKJ, HLK = COMMON.P[9], COMMON.P[10], COMMON.P[11], COMMON.P[12]
+    HSJ, HSJK, HSK = COMMON.P[13], COMMON.P[14], COMMON.P[15]
+    EAA, EBB, ECC, EAB = COMMON.P[16], COMMON.P[17], COMMON.P[18], COMMON.P[19]
+    SLN, SLNK, SLKN, SLK = COMMON.P[20], COMMON.P[21], COMMON.P[22], COMMON.P[23]
+    SSN, SSK = COMMON.P[24], COMMON.P[25]
+    
+    # --- Spin 1 Parameters ---
+    FCNT1 = COMMON.P[26] 
+    TAA1, TBB1, TAB1 = COMMON.P[27], COMMON.P[28], COMMON.P[29]
+    CAA1, CBB1, CCC1 = COMMON.P[30], COMMON.P[31], COMMON.P[32]
+    XAA1, XBB1, XAB1 = COMMON.P[33], COMMON.P[34], COMMON.P[35]
+    
+    # --- Spin 2 Parameters ---
+    FCNT2 = COMMON.P[36]
+    TAA2, TBB2, TAB2 = COMMON.P[37], COMMON.P[38], COMMON.P[39]
+    CAA2, CBB2, CCC2 = COMMON.P[40], COMMON.P[41], COMMON.P[42]
+    XAA2, XBB2, XAB2 = COMMON.P[43], COMMON.P[44], COMMON.P[45]
+
+    # --- Spin 3 Parameters ---
+    FCNT3 = COMMON.P[46]
+    TAA3, TBB3, TAB3 = COMMON.P[47], COMMON.P[48], COMMON.P[49]
+    CAA3, CBB3, CCC3 = COMMON.P[50], COMMON.P[51], COMMON.P[52]
+    XAA3, XBB3, XAB3 = COMMON.P[53], COMMON.P[54], COMMON.P[55]
+    
+    TRJ = np.zeros((16, 16, 5, 5))
+    for NU in range(16):
+        for KU in range(16):
+            for JDN in range(-2, 3):
+                for IQ in range(-2, 3):
+                    TRJ[NU, KU, JDN+2, IQ+2] = THREJ(NU-JDN, 2, NU, -KU-IQ, IQ, KU)
+                    
+    SW0 = (ISW == 0)
+    SWN = (1 <= ISW <= 15)
+    SWJ = (16 <= ISW <= 25)
+    SWF = (26 <= ISW <= 35)
+    SWG = (36 <= ISW <= 45)
+    SWR = (46 <= ISW <= 55)
+
+    S = 0.5
+    FI, GI, RI = COMMON.DI1, COMMON.DI2, COMMON.DI3
+    SS2S = S*(S+1.0)*(2.0*S+1.0)
+    FII2I = FI*(FI+1.0)*(2.0*FI+1.0) if FI > 0 else 0.0
+    GII2I = GI*(GI+1.0)*(2.0*GI+1.0) if GI > 0 else 0.0
+    RII2I = RI*(RI+1.0)*(2.0*RI+1.0) if RI > 0 else 0.0
+    
+    FIIQ = 0.0; GIIQ = 0.0; RIIQ = 0.0
+    if FI >= 1.0: FIIQ = (FI+1.0)*(2.0*FI+1.0)*(2.0*FI+3.0)/(FI*(2.0*FI-1.0))
+    if GI >= 1.0: GIIQ = (GI+1.0)*(2.0*GI+1.0)*(2.0*GI+3.0)/(GI*(2.0*GI-1.0))
+    if RI >= 1.0: RIIQ = (RI+1.0)*(2.0*RI+1.0)*(2.0*RI+3.0)/(RI*(2.0*RI-1.0))
+    
+    BAVE = B if COMMON.IFAVE != 0 else 0.5*(B+C)
+    BDIF = 0.25*C if COMMON.IFAVE != 0 else 0.25*(B-C)
+    AP = A - BAVE
+    
+    T = np.zeros((4, 6))
+    T[1,3] = -(EAA+EBB+ECC)/math.sqrt(3.0)
+    T[3,1] = 0.5*(EBB-ECC)
+    T[3,2] = EAB
+    T[3,3] = (2.0*EAA-EBB-ECC)/math.sqrt(6.0)
+    T[3,4] = -EAB
+    T[3,5] = T[3,1]
+    
+    # Spin 1 Dipole and Quadrupole Tensors
+    TC1 = np.zeros(6); TQ1 = np.zeros(6); CC1 = np.zeros((4, 6))
+    TC1[1] = (2.0*TBB1+TAA1)/math.sqrt(24.0)
+    TC1[2] = TAB1/math.sqrt(6.0)
+    TC1[3] = 0.5*TAA1
+    TC1[4] = -TC1[2]
+    TC1[5] = TC1[1]
+    
+    TQ1[1] = (2.0*XBB1+XAA1)/math.sqrt(24.0)
+    TQ1[2] = XAB1/math.sqrt(6.0)
+    TQ1[3] = 0.5*XAA1
+    TQ1[4] = -TQ1[2]
+    TQ1[5] = TQ1[1]
+    
+    CC1[1,3] = -(CAA1+CBB1+CCC1)/math.sqrt(3.0)
+    CC1[3,1] = 0.5*(CBB1-CCC1)
+    CC1[3,3] = (2.0*CAA1-CBB1-CCC1)/math.sqrt(6.0)
+    CC1[3,5] = CC1[3,1]
+    
+    # Spin 2 Dipole and Quadrupole Tensors
+    TC2 = np.zeros(6); TQ2 = np.zeros(6); CC2 = np.zeros((4, 6))
+    TC2[1] = (2.0*TBB2+TAA2)/math.sqrt(24.0)
+    TC2[2] = TAB2/math.sqrt(6.0)
+    TC2[3] = 0.5*TAA2
+    TC2[4] = -TC2[2]
+    TC2[5] = TC2[1]
+    
+    TQ2[1] = (2.0*XBB2+XAA2)/math.sqrt(24.0)
+    TQ2[2] = XAB2/math.sqrt(6.0)
+    TQ2[3] = 0.5*XAA2
+    TQ2[4] = -TQ2[2]
+    TQ2[5] = TQ2[1]
+    
+    CC2[1,3] = -(CAA2+CBB2+CCC2)/math.sqrt(3.0)
+    CC2[3,1] = 0.5*(CBB2-CCC2)
+    CC2[3,3] = (2.0*CAA2-CBB2-CCC2)/math.sqrt(6.0)
+    CC2[3,5] = CC2[3,1]
+    
+    # Spin 3 Dipole and Quadrupole Tensors
+    TC3 = np.zeros(6); TQ3 = np.zeros(6); CC3 = np.zeros((4, 6))
+    TC3[1] = (2.0*TBB3+TAA3)/math.sqrt(24.0)
+    TC3[2] = TAB3/math.sqrt(6.0)
+    TC3[3] = 0.5*TAA3
+    TC3[4] = -TC3[2]
+    TC3[5] = TC3[1]
+    
+    TQ3[1] = (2.0*XBB3+XAA3)/math.sqrt(24.0)
+    TQ3[2] = XAB3/math.sqrt(6.0)
+    TQ3[3] = 0.5*XAA3
+    TQ3[4] = -TQ3[2]
+    TQ3[5] = TQ3[1]
+    
+    CC3[1,3] = -(CAA3+CBB3+CCC3)/math.sqrt(3.0)
+    CC3[3,1] = 0.5*(CBB3-CCC3)
+    CC3[3,3] = (2.0*CAA3-CBB3-CCC3)/math.sqrt(6.0)
+    CC3[3,5] = CC3[3,1]
+    
+    COMMON.H.fill(0.0)
+    IBSIZE = np.zeros(61, dtype=int)
+    JBSIZE = np.zeros(61, dtype=int)
+    
+    N_arr = np.zeros(5000); KA_arr = np.zeros(5000); FJ_arr = np.zeros(5000)
+    F_arr = np.zeros(5000); G_arr = np.zeros(5000)
+
+    for IBLOCK in range(1, COMMON.MXBLK + 1):
+        res = SETNJF(R, IBLOCK, ISS)
+        if res is None: 
+            IBSIZE[IBLOCK+1] = IBSIZE[IBLOCK]
+            continue
+        NU, JU, FU, GU = res
+        FNU, FNU2, F2NU, NNU = float(NU), NU*NU, 2.0*NU+1.0, NU*(NU+1)
+        FNNU, F2JU, F2FU, F2GU = float(NNU), 2.0*JU+1.0, 2.0*FU+1.0, 2.0*GU+1.0
+        
+        if NU != 0: DSQFN = math.sqrt(FNU2 - 1.0)
+        else: DSQFN = 0.0
+        
+        GJ = 0.0 if NU == 0 else (JU*(JU+1.0) - FNNU - 0.75)/(2.0*FNNU)
+        
+        ADD = ((HSJ*FNNU - DSJ + GJ*SSN + HSJK)*FNNU + BDIF - DSK + GJ*SSK + HSK)*FNNU
+        BJJ = ((HLJ*FNNU - DLJ + GJ*SLN)*FNNU + BAVE)*FNNU
+        BJJ2 = (HLJK*FNNU - DLJK + GJ*(SLKN+SLNK))*FNNU + AP
+        BJJ4 = HLKJ*FNNU - DLK + GJ*SLK
+        BSJ = (HSJ*FNNU - DSJ + GJ*SSN + HSJK)*FNNU + BDIF - DSK + GJ*SSK + HSK
+        BSJ2 = HSJK*FNNU - DSK + GJ*SSK + 6.0*HSK
+        
+        for JBLOCK in range(1, IBLOCK + 1):
+            resL = SETNJF(R, JBLOCK, ISS)
+            if resL is None:
+                JBSIZE[JBLOCK+1] = JBSIZE[JBLOCK]
+                continue
+            NL, JL, FL, GL = resL
+            
+            NDIA = (NU == NL); JDIA = (JU == JL); FDIA = (FU == FL); GDIA = (GU == GL)
+            FNL, FNL2, F2NL, FNNL = float(NL), NL*NL, 2.0*NL+1.0, NL*(NL+1.0)
+            F2FL, F2GL = 2.0*FL+1.0, 2.0*GL+1.0
+            
+            IDN = int(NU - NL)
+            if abs(IDN) > 2 or abs(JU-JL) > 2.0 or abs(FU-FL) > 2.0 or abs(GU-GL) > 2.0: continue
+            
+            TRJ121 = TRJ[int(NU), 1, IDN+2, 0] if abs(IDN) < 3 else 0.0
+            
+            FSR_val = 0.0; FSRK_0 = 0.0; FSRK_2 = 0.0; FSRK_3 = 0.0
+            if abs(NU-NL) <= 1 and JDIA and FDIA and GDIA:
+                FSR_val = math.sqrt(SS2S*F2NU*F2NL)*FSGN(int(JU+S)+NL)*SIXJ(FNU,S,JU,S,FNL,1.0)*0.5
+                FN2NU = math.sqrt(FNNU*F2NU) if NU > 0 else 0.0
+                FN2NL = math.sqrt(FNNL*F2NL) if NL > 0 else 0.0
+                FSRK_0 = math.sqrt(1.0)*FSR_val*(FSGN(0)*FN2NU*SIXJ(1.0,1.0,0.0,FNL,FNU,FNU)+FN2NL*SIXJ(1.0,1.0,0.0,FNU,FNL,FNL))
+                FSRK_2 = math.sqrt(5.0)*FSR_val*(FSGN(2)*FN2NU*SIXJ(1.0,1.0,2.0,FNL,FNU,FNU)+FN2NL*SIXJ(1.0,1.0,2.0,FNU,FNL,FNL))
+                FSRK_3 = FSRK_2 
+                
+            FHFSG_val = 0.0; FHF_val = 0.0; FHFQ_val = 0.0; FNRK_0 = 0.0; FNRK_2 = 0.0; FNRK_3 = 0.0
+            GHFSG_val = 0.0; GHF_val = 0.0; GHFQ_val = 0.0; GNRK_0 = 0.0; GNRK_2 = 0.0; GNRK_3 = 0.0
+            RHFSG_val = 0.0; RHF_val = 0.0; RHFQ_val = 0.0; RNRK_0 = 0.0; RNRK_2 = 0.0; RNRK_3 = 0.0
+            
+            # Spin 1 Blocks
+            if abs(JU-JL) <= 1.0 and FDIA and GDIA:
+                FACTRS = FSGN(NU+int(JL+S))*SIXJ(FNU,JL,S,1.0,S,JU)
+                FACTRH = math.sqrt(30.0*F2NU*F2NL)*X9J(FNL,FNU,2.0,S,S,1.0,JL,JU,1.0)
+                FFF = -FSGN(int(JU+FI+FU))*math.sqrt(FII2I*SS2S*F2JU*(2.0*JL+1.0))*SIXJ(FI,JL,FU,JU,FI,1.0)
+                if NDIA: FHFSG_val = FFF*FACTRS
+                FHF_val = FFF*FACTRH
+                
+                if FI >= 1.0:
+                    FHFQ_val = 0.5 * FSGN(NL+int(S+JU+JU+FI+FU)) * math.sqrt(FIIQ*F2JU*(2.0*JL+1.0)*F2NU*F2NL) * SIXJ(FI,JL,FU,JU,FI,2.0) * SIXJ(FNL,JL,S,JU,FNU,2.0)
+
+            # Spin 2 Blocks
+            if abs(JU-JL) <= 1.0 and GDIA and abs(FU-FL) <= 1.0:
+                FACTRS = FSGN(NU+int(JL+S))*SIXJ(FNU,JL,S,1.0,S,JU)
+                FACTRH = math.sqrt(30.0*F2NU*F2NL)*X9J(FNL,FNU,2.0,S,S,1.0,JL,JU,1.0)
+                GGG = FSGN(int(FU+FU+GU+JL+FI+GI)) * math.sqrt(GII2I*SS2S*F2JU*(2.0*JL+1.0)*F2FU*F2FL) * SIXJ(GU,GI,FL,1.0,FU,GI) * SIXJ(FI,JL,FL,1.0,FU,JU)
+                if NDIA: GHFSG_val = GGG*FACTRS
+                GHF_val = GGG*FACTRH
+                
+                if GI >= 1.0:
+                    GHFQ_val = 0.5 * FSGN(NL+int(S+JU+JL+FI+FU+FU+GI+GU)) * math.sqrt(GIIQ*F2JU*(2.0*JL+1.0)*F2NU*F2NL*F2FU*F2FL) * SIXJ(GI,FL,GU,FU,GI,2.0) * SIXJ(FL,JL,FI,JU,FU,2.0) * SIXJ(FNL,JL,S,JU,FNU,2.0)
+
+            # Spin 3 Blocks
+            if abs(GU-GL) <= 1.0 and abs(FU-FL) <= 1.0 and abs(JU-JL) <= 1.0:
+                FACTRS = FSGN(NU+int(JL+S))*SIXJ(FNU,JL,S,1.0,S,JU)
+                FACTRH = math.sqrt(30.0*F2NU*F2NL)*X9J(FNL,FNU,2.0,S,S,1.0,JL,JU,1.0)
+                RRR = -FSGN(int(GU+GU+FU+FL+JL+R+RI+GI+FI)) * math.sqrt(RII2I*SS2S*F2JU*(2.0*JL+1.0)*F2FU*F2FL*F2GU*(2.0*GL+1.0)) * SIXJ(R,RI,GL,1.0,GU,RI) * SIXJ(GI,FL,GL,1.0,GU,FU) * SIXJ(FI,JL,FL,1.0,FU,JU)
+                if NDIA: RHFSG_val = RRR*FACTRS
+                RHF_val = RRR*FACTRH
+                
+                if RI >= 1.0:
+                    RHFQ_val = 0.5 * FSGN(NL+int(S+JU+JL+FI+FU+FL+GI+GU+GU+RI+R)) * math.sqrt(RIIQ*F2JU*(2.0*JL+1.0)*F2NU*F2NL*F2FU*F2FL*F2GU*(2.0*GL+1.0)) * SIXJ(RI,GL,R,GU,RI,2.0) * SIXJ(GL,FL,GI,FU,GU,2.0) * SIXJ(FL,JL,FI,JU,FU,2.0) * SIXJ(FNL,JL,S,JU,FNU,2.0)
+                
+            KU0 = ISS if int(NU) % 2 == 0 else 1-ISS
+            KL0 = ISS if int(NL) % 2 == 0 else 1-ISS
+            
+            IEU = IBSIZE[IBLOCK]
+            for KU in range(KU0, int(NU)+1):
+                FLKK = float(KU*KU)
+                IEU += 1
+                if JBLOCK == IBLOCK:
+                    N_arr[IEU] = NU; KA_arr[IEU] = KU; FJ_arr[IEU] = JU
+                    F_arr[IEU] = FU; G_arr[IEU] = GU
+                    
+                IEL = JBSIZE[JBLOCK]
+                for KL in range(KL0, int(NL)+1):
+                    IEL += 1
+                    if abs(KL-KU) > 2: continue
+                    IQ = KL - KU
+                    IABIQ = abs(IQ) + 1
+                    
+                    HD_rot = 0.0; HO_rot = 0.0
+                    if NDIA and JDIA and FDIA and GDIA and (SW0 or SWN or SWJ):
+                        if KU == KL:
+                            HD_rot = ((HLK*FLKK + BJJ4)*FLKK + BJJ2)*FLKK + BJJ
+                            if KU == 1 and KU0 == 0: HD_rot -= ADD
+                            if KU == 1 and KU0 != 0: HD_rot += ADD
+                            if SW0 or SWN or SWJ: COMMON.H[IEL, IEU] = HD_rot
+                        elif abs(IQ) == 2:
+                            KK = max(KU, KL) - 1
+                            FLKX = float(KK*KK)
+                            SQQ = math.sqrt(max(0.0, (NNU - KK*(KK+1))*(NNU - KK*(KK-1))))
+                            HO_rot = ((HSK*FLKX + BSJ2)*FLKX + BSJ) * SQQ
+                            if KK == 1: HO_rot *= math.sqrt(2.0)
+                            if SW0 or SWN or SWJ: COMMON.H[IEL, IEU] = HO_rot
+                            
+                    if SWN: continue
+                    
+                    HD = 0.0; HO = 0.0
+                    if JDIA and FDIA and GDIA and (SW0 or SWJ):
+                        if IABIQ <= 1: HD += FSRK_0 * THREJ(int(NL), 0, int(NU), int(-KL), int(IQ), int(KU)) * T[1, IQ+3]
+                        if IABIQ <= 3: HD += FSRK_2 * THREJ(int(NL), 2, int(NU), int(-KL), int(IQ), int(KU)) * T[3, IQ+3]
+                        if IQ == 0 and KL == 1: HO += FSRK_3 * TRJ121 * T[3, 1]
+                        
+                        if not NDIA:
+                            if IQ == 0:
+                                FKU = float(KU)
+                                HD -= 0.5 * FKU / FNU * math.sqrt(max(0.0, FNU2 - FLKK)) * (SLK*FLKK + SLNK*FNU2)
+                                if KU == 1: HO -= SSK * DSQFN * 0.5
+                            elif IABIQ == 3:
+                                KS = -KU if IQ > 0 else KU
+                                NKPL = NU + KS
+                                NKMI = NU - KS
+                                val_sqrt = float(NKPL*(NKPL-1)*(NKPL-2)*(NKMI+1))
+                                if val_sqrt > 0:
+                                    HD -= SSK / (FNU * 4.0) * math.sqrt(val_sqrt) * float(KU*NKMI + (KU+IQ)*(NKMI+2))
+
+                    if not SWJ:
+                        THREEJ = TRJ[int(NU), int(KU), IDN+2, IQ+2]
+                        # Spin 1 Hyperfine + Quadrupole
+                        if FDIA and GDIA and (SW0 or SWF):
+                            HD += FHF_val * THREEJ * TC1[IQ+3] + FHFQ_val * THREEJ * TQ1[IQ+3]
+                            if KU == KL and NDIA: HD += FHFSG_val * FCNT1
+                            if IQ == 0 and KL == 1: HO += FHF_val * TRJ121 * TC1[1] + FHFQ_val * TRJ121 * TQ1[1]
+                        # Spin 2 Hyperfine + Quadrupole
+                        if GDIA and (SW0 or SWG):
+                            HD += GHF_val * THREEJ * TC2[IQ+3] + GHFQ_val * THREEJ * TQ2[IQ+3]
+                            if KU == KL and NDIA: HD += GHFSG_val * FCNT2
+                            if IQ == 0 and KL == 1: HO += GHF_val * TRJ121 * TC2[1] + GHFQ_val * TRJ121 * TQ2[1]
+                        # Spin 3 Hyperfine + Quadrupole
+                        if SW0 or SWR:
+                            HD += RHF_val * THREEJ * TC3[IQ+3] + RHFQ_val * THREEJ * TQ3[IQ+3]
+                            if KU == KL and NDIA: HD += RHFSG_val * FCNT3
+                            if IQ == 0 and KL == 1: HO += RHF_val * TRJ121 * TC3[1] + RHFQ_val * TRJ121 * TQ3[1]
+                    
+                    if (IQ > 0 and KU == 0) or (IQ < 0 and KL == 0): HD *= math.sqrt(2.0)
+                    if KL0 == 0: HO = -HO
+                    
+                    COMMON.H[IEL, IEU] += HD + HO
+                    
+            IBSIZE[IBLOCK+1] = IEU
+            JBSIZE[JBLOCK+1] = IEL
+
+    MSIZE = IEU
+    for II in range(1, MSIZE):
+        for JJ in range(II+1, MSIZE+1):
+            COMMON.H[JJ, II] = COMMON.H[II, JJ]
+            
+    return MSIZE, N_arr, KA_arr, FJ_arr, F_arr, G_arr
+
+def ENERG(N_in, K_in, FJ_in, F_in, G_in, R_in, NPT, ISS, IDM, KDM, IRD, ISPIN):
+    for I in range(1, 61): COMMON.P[I] = COMMON.PAR[I]
+        
+    MSIZE, NT, KT, FJT, FT, GT = TMTRX(R_in, ISS, 0)
+    S, ILL = JACOBD(COMMON.H, 500, MSIZE, 1.0E-12)
+    
+    EN = np.zeros(IDM+1)
+    IT = np.zeros(IDM+1, dtype=int)
+    
+    for I in range(1, NPT+1):
+        for J in range(1, MSIZE+1):
+            if (abs(N_in[I] - NT[J]) < 1e-4 and abs(K_in[I] - KT[J]) < 1e-4 and 
+                abs(FJ_in[I] - FJT[J]) < 1e-4 and abs(F_in[I] - FT[J]) < 1e-4 and 
+                abs(G_in[I] - GT[J]) < 1e-4):
+                EN[I] = COMMON.H[J, J]
+                IT[I] = J
+                
+    AV = np.zeros((KDM+1, IDM+1))
+    
+    for I in range(1, COMMON.NFVAR+1):
+        IPAR = COMMON.NIND[I]
+        for J in range(61): COMMON.P[J] = 0.0
+        COMMON.P[IPAR] = 1.0
+        
+        TMTRX(R_in, ISS, IPAR)
+        
+        for II in range(1, NPT+1):
+            if IT[II] == 0: continue
+            BIBUN = 0.0
+            for IA in range(1, MSIZE+1):
+                for IB in range(1, MSIZE+1):
+                    BIBUN += S[IB, IT[II]] * COMMON.H[IB, IA] * S[IA, IT[II]]
+            AV[I, II] = BIBUN
+            
+    return EN, AV
+
+def FITX(U, V, W, NVAR, LINES):
+    N1 = NVAR + 1
+    NLINES = sum(1 for K in range(1, LINES+1) if W[K] != 0.0)
+    
+    U_work = np.zeros((LINES+1, N1+1))
+    for K in range(1, LINES+1):
+        if W[K] != 0.0:
+            WX = math.sqrt(W[K])
+            for I in range(1, NVAR+1): U_work[K, I] = U[K, I] * WX
+            U_work[K, N1] = V[K] * WX
+            
+    DNF = np.zeros(61)
+    for M in range(1, N1+1):
+        Z1 = sum(U_work[K, M]**2 for K in range(1, LINES+1) if W[K] != 0.0)
+        DNF[M] = 1.0 / math.sqrt(Z1) if Z1 > 0 else 1.0
+        for K in range(1, LINES+1): U_work[K, M] *= DNF[M]
+        
+    Z0 = 1.0 / DNF[N1] if DNF[N1] != 0 else 1.0
+    
+    A_mat = np.zeros((61, 61))
+    for I in range(1, NVAR+1):
+        A_mat[I, I] = 1.0
+        for K in range(I+1, N1+1):
+            Z2 = sum(U_work[L, I]*U_work[L, K] for L in range(1, LINES+1) if W[L] != 0.0)
+            A_mat[I, K] = Z2
+            A_mat[K, I] = Z2
+            
+    FNORM = sum(A_mat[I-1, K]**2 for I in range(2, NVAR+1) for K in range(1, NVAR+1))
+    FNORM = 2.0 * FNORM + float(NVAR)
+    
+    R_mat = np.zeros((61, 61))
+    DET = 1.0
+    for M in range(1, NVAR+1):
+        for J in range(M, N1+1):
+            Z2 = sum(R_mat[K, M]*R_mat[K, J] for K in range(1, M)) if M != 1 else 0.0
+            Z2 = A_mat[M, J] - Z2
+            if J == M:
+                DET *= Z2
+                R_mat[M, M] = math.sqrt(max(Z2, 1e-15))
+            else:
+                R_mat[M, J] = Z2 / R_mat[M, M]
+                
+    X = np.zeros(61)
+    Z2_sum = 0.0; Z3_sum = 0.0
+    for M in range(NVAR, 0, -1):
+        X[M] = (R_mat[M, N1] - Z2_sum) / R_mat[M, M]
+        Z3_sum += X[M] * A_mat[M, N1]
+        if M != 1:
+            Z2_sum = sum(R_mat[M-1, J]*X[J] for J in range(M, NVAR+1))
+            
+    Z3_sum = (1.0 - Z3_sum) * (1.0/(DNF[N1]**2)) / max(float(NLINES - NVAR), 1.0)
+    SIGMA = math.sqrt(max(0.0, Z3_sum))
+    
+    C_mat = np.zeros((61, 61))
+    for I in range(NVAR, 0, -1):
+        C_mat[I, I] = 1.0 / R_mat[I, I]**2
+        for K in range(I-1, 0, -1):
+            Z2 = sum(R_mat[K, N_idx]*C_mat[N_idx, I] for N_idx in range(K+1, NVAR+1))
+            C_mat[K, I] = -Z2 / R_mat[K, K]
+            C_mat[I, K] = C_mat[K, I]
+            
+    SE = np.zeros(61)
+    for I in range(1, NVAR+1):
+        SE[I] = DNF[I] * math.sqrt(max(C_mat[I, I], 0.0)) * SIGMA
+        
+    X_out = np.zeros(61)
+    for M in range(1, NVAR+1): X_out[M] = X[M] * DNF[M] * Z0
+    return X_out, SE, SIGMA
+
+# ==============================================================================
+# 10. File Generators (.pred and .freq formats)
+# ==============================================================================
+def write_pred_file(filename, title, true_rms, sigma, df, ENO, EC, V, W):
+    now = datetime.datetime.now()
+    with open(filename, 'w') as f:
+        f.write(f"{now.strftime('%H:%M:%S')} MONTH={now.month} DAY={now.day} {now.year}\n")
+        f.write(f"--- FIT RESULTS FOR: {title} ---\n")
+        f.write(f"OVERALL RMS ERROR : {true_rms:10.5f} MHz  (Dimensionless Sigma: {sigma:8.5f})\n")
+        f.write("-" * 50 + "\n")
+        f.write(f"{'Parameter':<12} {'Fitted Value':>15} {'Std. Error':>15}\n")
+        f.write("-" * 45 + "\n")
+        for I in range(1, COMMON.NFVAR+1):
+            ID = COMMON.NIND[I]
+            f.write(f"{COMMON.SPAR[ID].strip():<12} {COMMON.PAR[ID]:15.6f} {SE_out[I]:15.6f}\n")
+            
+        f.write("\n\n")
+        f.write("  J Ka Kc  F   J Ka Kc  F       Observed   Calculated     Obs-Calc     Error\n")
+        f.write("-" * 80 + "\n")
+        for I in range(1, len(df)+1):
+            if W[I] == 0.0: continue
+            row = df.iloc[I-1]
+            j_up = f"{row['J_p']}" if row['J_p'] >= 0 else ""
+            j_lo = f"{row['J_pp']}" if row['J_pp'] >= 0 else ""
+            
+            su = f"{int(row['N_p']):2d} {int(row['Ka_p']):2d} {int(row['Kc_p']):2d} {row['F_p']:4.1f}"
+            sl = f"{int(row['N_pp']):2d} {int(row['Ka_pp']):2d} {int(row['Kc_pp']):2d} {row['F_pp']:4.1f}"
+            err_val = math.sqrt(1.0/W[I]) if W[I] > 0 else 0.0
+            
+            f.write(f" {su:>10}  {sl:>10}  {ENO[I]:13.4f} {EC[I]:12.4f} {V[I]:12.4f} {err_val:9.4f}\n")
+
+def write_freq_file(filename, title, df, EC):
+    with open(filename, 'w') as f:
+        f.write(f"Frequency LogInt  J Ka Kc F  J Ka Kc F (Up - Low) - {title}\n")
+        for I in range(1, len(df)+1):
+            row = df.iloc[I-1]
+            j_up = f"{row['J_p']}" if row['J_p'] >= 0 else ""
+            j_lo = f"{row['J_pp']}" if row['J_pp'] >= 0 else ""
+            
+            su = f"{int(row['N_p']):2d} {int(row['Ka_p']):2d} {int(row['Kc_p']):2d} {row['F_p']:4.1f}"
+            sl = f"{int(row['N_pp']):2d} {int(row['Ka_pp']):2d} {int(row['Kc_pp']):2d} {row['F_pp']:4.1f}"
+            dummy_intensity = -5.0000 
+            
+            f.write(f"{EC[I]:11.4f}  {dummy_intensity:7.4f}   {su:>10}  {sl:>10}   {title}\n")
+
+# ==============================================================================
+# MAIN EXECUTION
+# ==============================================================================
+if __name__ == "__main__":
+    input_file = "3top_input.txt"
+    title, config, params_in, flags_in, df = parse_spectroscopy_file(input_file)
+    
+    # Robust Dictionary Aliasing: Map user's custom names back to Fortran's 1-based internal indices
+    name_to_index = {
+        # --- Rotational & Spin-Rotation ---
+        'A': 1, 'B': 2, 'C': 3,
+        'DLN': 4, 'DJ': 4, 'DSN': 4, 
+        'DLNK': 5, 'DJK': 5, 'DSNK': 5, 
+        'DLK': 6, 'DK': 6, 'DSK': 6,
+        'DSN_OFF': 7, 'DSJ': 7, 'D1': 7, 
+        'DSK_OFF': 8, 'DS2': 8, 'D2': 8,
+        'HLN': 9, 'HLNK': 10, 'HLKN': 11, 'HLK': 12,
+        'HSN': 13, 'HSNK': 14, 'HSK': 15,
+        'EAA': 16, 'EBB': 17, 'ECC': 18, 'EAB': 19,
+        'SLN': 20, 'SLNK': 21, 'SLKN': 22, 'SLK': 23,
+        'SSN': 24, 'SSK': 25,
+        
+        # --- Spin 1 (Indices 26-35) ---
+        'AC1': 26, 'AF': 26, 'AF1': 26, 'FCNT': 26, 'FCNT1': 26,
+        'AA1': 27, 'TAA': 27, 'TAA1': 27,
+        'BB1': 28, 'TBB': 28, 'TBB1': 28,
+        'AB1': 29, 'TAB': 29, 'TAB1': 29,
+        'CAA1': 30, 'CAA': 30, 
+        'CBB1': 31, 'CBB': 31, 
+        'CCC1': 32, 'CCC': 32,
+        'XAA1': 33, 'XAA': 33,
+        'XBB1': 34, 'XBB': 34,
+        'XAB1': 35, 'XAB': 35,
+
+        # --- Spin 2 (Indices 36-45) ---
+        'AC2': 36, 'AF2': 36, 'FCNT2': 36,
+        'AA2': 37, 'TAA2': 37,
+        'BB2': 38, 'TBB2': 38,
+        'AB2': 39, 'TAB2': 39,
+        'CAA2': 40, 'CBB2': 41, 'CCC2': 42,
+        'XAA2': 43, 'XBB2': 44, 'XAB2': 45,
+
+        # --- Spin 3 (Indices 46-55) ---
+        'AC3': 46, 'AF3': 46, 'FCNT3': 46,
+        'AA3': 47, 'TAA3': 47,
+        'BB3': 48, 'TBB3': 48,
+        'AB3': 49, 'TAB3': 49,
+        'CAA3': 50, 'CBB3': 51, 'CCC3': 52,
+        'XAA3': 53, 'XBB3': 54, 'XAB3': 55,
+    }
+
+    for raw_key, val in params_in.items():
+        key_upper = raw_key.strip().upper()
+        if key_upper in name_to_index:
+            idx = name_to_index[key_upper]
+            COMMON.PAR[idx] = val
+            if flags_in[raw_key] == 2:
+                COMMON.NFVAR += 1
+                COMMON.NIND[COMMON.NFVAR] = idx
+                COMMON.SPAR[idx] = raw_key.ljust(4)[:4]
+                
+    if 'SPIN' in config:
+        spin_vals = list(map(float, config['SPIN']))
+        COMMON.DI1 = spin_vals[0] if len(spin_vals) > 0 else 0.0
+        COMMON.DI2 = spin_vals[1] if len(spin_vals) > 1 else 0.0
+        COMMON.DI3 = spin_vals[2] if len(spin_vals) > 2 else 0.0
+    else:
+        COMMON.DI1, COMMON.DI2, COMMON.DI3 = 1.5, 0.0, 0.0
+        
+    COMMON.MXBLK = int(16.0 * (COMMON.DI1 + 0.5) * (COMMON.DI2 + 0.5) * (COMMON.DI3 + 0.5))
+    
+    NDATA = len(df)
+    IDM = NDATA + 10
+    KDM = 60
+    
+    N_arr = np.zeros(IDM); K_arr = np.zeros(IDM); FJ_arr = np.zeros(IDM)
+    F_arr = np.zeros(IDM); G_arr = np.zeros(IDM); R_arr = np.zeros(IDM)
+    ISYM = np.zeros(IDM, dtype=int)
+    
+    N_arr_L = np.zeros(IDM); K_arr_L = np.zeros(IDM); FJ_arr_L = np.zeros(IDM)
+    F_arr_L = np.zeros(IDM); G_arr_L = np.zeros(IDM); R_arr_L = np.zeros(IDM)
+    ISYM_L = np.zeros(IDM, dtype=int)
+    
+    ENO = np.zeros(IDM); W = np.zeros(IDM)
+    
+    for i in range(NDATA):
+        row = df.iloc[i]
+        idx = i + 1
+        N_arr[idx] = row['N_p']; K_arr[idx] = row['Ka_p']; FJ_arr[idx] = row['J_p']
+        F_arr[idx] = row['F_p']; G_arr[idx] = row['F_p']; R_arr[idx] = row['F_p']
+        ISYM[idx] = int(row['Kc_p']) % 2 
+        
+        N_arr_L[idx] = row['N_pp']; K_arr_L[idx] = row['Ka_pp']; FJ_arr_L[idx] = row['J_pp']
+        F_arr_L[idx] = row['F_pp']; G_arr_L[idx] = row['F_pp']; R_arr_L[idx] = row['F_pp']
+        ISYM_L[idx] = int(row['Kc_pp']) % 2 
+        
+        ENO[idx] = row['Freq']; W[idx] = 1.0 / (row['Err']**2) if row['Err'] != 0 else 0.0
+
+    print(f"\n==============================================")
+    print(f"                    SPINN")
+    print(f"==============================================")
+    print(f"{title}")
+    
+    U = np.zeros((IDM, KDM))
+    V = np.zeros(IDM)
+    EC = np.zeros(IDM)
+    
+    for ICY in range(10): 
+        EC.fill(0.0)
+        U.fill(0.0)
+        
+        for ISS in [0, 1]:
+            for IA in [1, 2]:
+                R_search = R_arr if IA == 1 else R_arr_L
+                N_s = N_arr if IA == 1 else N_arr_L
+                K_s = K_arr if IA == 1 else K_arr_L
+                FJ_s = FJ_arr if IA == 1 else FJ_arr_L
+                F_s = F_arr if IA == 1 else F_arr_L
+                G_s = G_arr if IA == 1 else G_arr_L
+                SYM_s = ISYM if IA == 1 else ISYM_L
+                
+                unique_R = np.unique([R_search[i] for i in range(1, NDATA+1) if SYM_s[i] == ISS])
+                
+                for RA in unique_R:
+                    ITROW = []; NPT = 0
+                    N_pass = [0]; K_pass = [0]; FJ_pass = [0]; F_pass = [0]; G_pass = [0]
+                    
+                    for I in range(1, NDATA+1):
+                        if R_search[I] == RA and SYM_s[I] == ISS:
+                            NPT += 1
+                            ITROW.append(I)
+                            N_pass.append(N_s[I]); K_pass.append(K_s[I]); FJ_pass.append(FJ_s[I])
+                            F_pass.append(F_s[I]); G_pass.append(G_s[I])
+                            
+                    if NPT == 0: continue
+                    
+                    EN_res, AV_res = ENERG(N_pass, K_pass, FJ_pass, F_pass, G_pass, RA, NPT, ISS, IDM, KDM, 20, 1)
+                    
+                    XUL = 1.0 if IA == 1 else -1.0
+                    for IPT in range(1, NPT+1):
+                        IROW = ITROW[IPT-1]
+                        EC[IROW] += EN_res[IPT] * XUL
+                        for L in range(1, COMMON.NFVAR+1):
+                            U[IROW, L] += AV_res[L, IPT] * XUL
+
+        for I in range(1, NDATA+1):
+            V[I] = ENO[I] - EC[I]
+            
+        X_out, SE_out, SIGMA = FITX(U, V, W, COMMON.NFVAR, NDATA)
+        
+        print(f"Iteration {ICY+1} - RMS = {SIGMA:.5f} Dimensionless")
+        for I in range(1, COMMON.NFVAR+1):
+            ID = COMMON.NIND[I]
+            COMMON.PAR[ID] += X_out[I] * COMMON.DUMP
+            
+        if max(abs(X_out[1:COMMON.NFVAR+1])) < 1e-8: break
+
+    # Unweighted True RMS Calculation
+    raw_residuals = [V[I] for I in range(1, NDATA+1) if W[I] != 0.0]
+    true_rms_mhz = math.sqrt(sum(r**2 for r in raw_residuals) / len(raw_residuals))
+
+    print(f"\n[✓] Final Fit Complete!")
+    
+    # Write the new format files
+    write_pred_file("fit_results.pred", title, true_rms_mhz, SIGMA, df, ENO, EC, V, W)
+    write_freq_file("fit_results.freq", title, df, EC)
+    print(f"--> Saved output to 'fit_results.pred' and 'fit_results.freq'")
+    
+    
+    
+#end of file
+"""
+=================================================================================================================================================================
+END OF FILE
+Intensity
+    ^
+    |
+    |            /\              /\
+    |           /  \            /  \
+    |          /    \          /    \
+    |         /      \        /      \
+    |        /        \      /        \
+    |       /          \    /          \
+    |      /            \  /            \
+    |_____/              \/              \_________________> Frequency
+
+                                                                                            ⠀⠀⠀⠀⢠⡶⠚⢷⣤⡀⠀⠀⠀⠀⠀⣲⡶⠛⠻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⠀⠀⠀⢠⡿⠁⠀⠀⠙⣷⣄⠀⢀⣴⡟⠁⠀⠀⢷⢹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⠀⠀⠀⣾⠃⠀⠠⠶⠚⠛⠛⠛⠛⠋⠀⠀⣀⡀⢸⠈⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⠀⠀⢸⣏⡔⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠚⠉⠉⣿⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⠀⠀⢾⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⠀⢠⣿⢠⣶⡆⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⢒⡾⠁⠘⠟⠁⠀⠀⠀⠀⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀
+                                                                                            ⠉⣧⠀⠀⠀⠀⠃⠀⠀⠀⠈⠉⠠⣍⠀⠀⠀⠀⠀⠀⣸⡇⢀⣤⠶⠛⠛⠻⢦⣄
+                                                                                            ⠀⠸⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡟⣴⠟⠁⠀⠀⠀⠀⠀⢻
+                                                                                            ⠀⠀⠀⠛⣷⡦⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⡴⠞⠋⢠⡟⠀⠀⠀⠀⠀⠀⢀⡾
+                                                                                            ⠀⠀⠀⢰⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⣤⡀⢸⠃⠀⠀⠀⠀⢠⡶⠟⠁
+                                                                                            ⠀⠀⠀⣸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣹⡄⠀⠀⠀⠀⣼⠀⠀⠀
+                                                                                            ⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣇⠀⠀⠀⠀⢹⡄⠀⠀
+                                                                                            ⠀⠀⠀⢸⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⠀⠈⣧⠀⠀
+                                                                                            ⠀⠀⠀⢸⡇⠘⡇⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⢹⡇⠀
+                                                                                            ⠀⠀⠀⢸⡇⠀⠙⠀⠀⠀⠀⠀⢠⠞⠁⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⢸⡇⠀
+                                                                                            ⠀⠀⠀⢸⡇⠀⢸⡆⠀⠀⠀⠀⣟⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠀⠀⠀⠀⣸⠇⠀
+                                                                                            ⠀⠀⠀⢸⣿⠀⠀⡇⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⣠⢇⡿⠀⠀⢀⣴⡟⠁⠀
+                                                                                            ⠀⠀⠀⠘⠿⠶⢶⢧⣦⣦⡴⢾⣥⣽⣤⣤⣤⣤⣤⣤⡿⣯⡤⠴⠶⠛⠋⠀⠀⠀
+
+    
+=================================================================================================================================================================
+"""
