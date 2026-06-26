@@ -1,8 +1,8 @@
 
 
-SPINN was intended to be a "autofitting program" that uses machine learning scripts , learns how to spectral analysis and basically does all the research for you. It produces a fitted constants, analyses those constants, references checks against the model rotational constants you put in the input file, all the fun stuff we do. 
+SPINN was intended to be a "autofitting program" that uses machine learning scripts , learns how to spectral analyze and basically does all the research for you. It produces a fitted constants, analyses those constants, references checks against the model rotational constants you put in the input file, all the fun stuff we do. 
 It came to me because I got tired of fitting spectra and just decided to streamline all of that so i have more time to write the paper. Yeah it is fun to do the acutal analysis ( maybe there is something wrong with use microwavers), but our time is more valuable in teaching people ( the public and our community) what we learned about the science that is being conducted.
-Our time is better spent treaching and writing meaningful papers that truly explain what the scientific problem is and why it is important, it is not just about constants, conformers, or whatever.
+Our time is better spent teaching and writing meaningful papers that truly explain what the scientific problem is and why it is important, it is not just about constants, conformers, or whatever.
 
 
 Anyways, this code is something I really invested time in and hopefully you like it. I will be keeping the neural network, machine learning, or ai code for myself. It will probably stay with me until i find a postdoc position or teach somewhere where i am valued. 
