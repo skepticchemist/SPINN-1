@@ -1,7 +1,14 @@
 
 
-SPINN was intended to be a "autofitting program" that uses machine learning scripts , learns how to spectral analyze and basically does all the research for you. It produces a fitted constants, analyses those constants, references checks against the model rotational constants you put in the input file, all the fun stuff we do. 
-It came to me because I got tired of fitting spectra and just decided to streamline all of that so i have more time to write the paper. Yeah it is fun to do the acutal analysis ( maybe there is something wrong with use microwavers), but our time is more valuable in teaching people ( the public and our community) what we learned about the science that is being conducted.
+SPINN was intended to be a "autofitting program" that uses machine learning scripts , learns how to spectral analyze and basically does all the research for you, e.g. plot spectra, compare spectra wil model spectra, begin assigning, good fit, continue, bad fit try again. 
+So basically it does a spectral analysis like us humans (lol) and then moves to fit the way we do, e.g. trial and error. its a lot to explain and i don't want to  if its all for nothing. Anyways, if a fit of less than 100 kHz is reached, then it changes your input file, then it continues. 
+If not reached,  it restarts and continues trying. 
+Once completed it can produce the fitted constants, analyze those constants, references checks against the model inputed constants , e.g. rotational constants, hyperfine, fine, etc. you put in the input file, all the fun stuff we do to prepare for our paper writing. 
+If quadXX is included it will perform a Townes-Dailey analysis and generates a table for you to take fitted constants with their estimated uncertainties. 
+
+
+This idea came to me because I got tired of fitting spectra and just decided to streamline all of that so i have more time to write the paper and or enjoy life( going for walks, spending time with cats and family, etc.) Although, Yeah, it is fun to do the acutal analysis 
+(maybe there is something wrong with use microwavers), but our time is more valuable in teaching people ( the public and our community) what we learned about the science that is being conducted and how it benefits the greater good, e.g. saving this world since its our only home!
 Our time is better spent teaching and writing meaningful papers that truly explain what the scientific problem is and why it is important, it is not just about constants, conformers, or whatever.
 
 
