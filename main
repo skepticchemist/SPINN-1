@@ -34,7 +34,7 @@ Handles:
 - 5SPIN (Closed Shell, 5 Nuclear Spins)
 - SR (hadnles 5-spins, Doublet Radical, Open Shell)
 Brain for SPINN.
-prototype fitter ---MJC
+prototype fitter ---Dr.MJC
 =========================================================================================================
 """
 import math, sys, datetime
